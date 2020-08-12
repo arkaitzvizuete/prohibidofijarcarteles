@@ -1,0 +1,12 @@
+
+#preview {
+    /* width: 100%; */
+    border: solid 1px #000000;
+}
+
+#filterPreview {
+    height: 480px;
+    width: 640px;
+
+    border: solid 1px #ff0000;
+}
