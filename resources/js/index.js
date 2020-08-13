@@ -48,7 +48,7 @@ function replacePixels(color) {
 
     filterPreviewContext.drawImage(preview, 0, 0, clientWidth, clientHeight);
 
-    let frame = filterPreviewContext.getImageData(0, 0, 640, 480);
+    let frame = filterPreviewContext.getImageData(0, 0, clientWidth, clientHeight);
     let l = frame.data.length;
 
     for (let i = 0; i < l; i++) {
