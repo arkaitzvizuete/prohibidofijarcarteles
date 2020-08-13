@@ -4,7 +4,7 @@ function loadCamera() {
     const constraints = {
         audio: false,
         video: {
-            facingMode: "environmnent"
+            facingMode: "environment"
         }
     }
 
@@ -44,6 +44,20 @@ function replacePixels(color) {
     filterPreviewContext.drawImage(preview, 0, 0, 300, 150);
 
     let frame = filterPreviewContext.getImageData(0, 0, 640, 480);
+    let l = frame.data.length;
+
+    for (let i = 0; i < l; i++) {
+        let r = frame.data[i * 4 + 0];
+        let g = frame.data[i * 4 + 1];
+        let b = frame.data[i * 4 + 2];
+        
+        if (r > 150 && g < 100 && b < 100) {
+            frame.data[i * 4 + 0] = 0;
+            frame.data[i * 4 + 1] = 0;
+            frame.data[i * 4 + 2] = 255;
+        }
+
+    }
 
     filterPreviewContext.putImageData(frame, 0, 0);
 
