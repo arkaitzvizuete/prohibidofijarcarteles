@@ -41,7 +41,12 @@ function replacePixels(color) {
     let filterPreview = document.getElementById("filterPreview");
     let filterPreviewContext = filterPreview.getContext("2d");
 
-    filterPreviewContext.drawImage(preview, 0, 0, 300, 150);
+    let clientWidth = preview.clientWidth;
+    let clientHeight = preview.clientHeight;
+    filterPreview.width = clientWidth;
+    filterPreview.height = clientHeight;
+
+    filterPreviewContext.drawImage(preview, 0, 0, clientWidth, clientHeight);
 
     let frame = filterPreviewContext.getImageData(0, 0, 640, 480);
     let l = frame.data.length;
@@ -51,7 +56,7 @@ function replacePixels(color) {
         let g = frame.data[i * 4 + 1];
         let b = frame.data[i * 4 + 2];
         
-        if (r > 150 && g < 100 && b < 100) {
+        if (r > 100 && g < 50 && b < 50) {
             frame.data[i * 4 + 0] = 0;
             frame.data[i * 4 + 1] = 0;
             frame.data[i * 4 + 2] = 255;
