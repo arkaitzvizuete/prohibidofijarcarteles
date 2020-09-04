@@ -23,3 +23,11 @@
     mix-blend-mode: multiply;
     display: none;
 }
+
+.filterSetting button {
+    display: inline-block;
+}
+
+.filterSetting p {
+    display: inline-block;
+}

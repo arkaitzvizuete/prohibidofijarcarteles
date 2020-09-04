@@ -53,13 +53,6 @@ function replacePixels(color) {
     $("#overlay2").css("width", clientWidth);
     $("#overlay2").css("height", clientHeight);
 
-    if (color === "R") {
-        $("#overlay").css("background-color", "#FF0000");
-        $("#overlay2").css("background-color", "#0000FF");
-    } else if (color === "B") {
-        // $("#overlay").css("background-color", "#0000FF");
-    }
-
     filterPreviewContext.drawImage(preview, 0, 0, clientWidth, clientHeight);
 
     let frame = filterPreviewContext.getImageData(0, 0, clientWidth, clientHeight);
@@ -120,15 +113,19 @@ function getColorPercentage(r, g, b, color) {
 
 
 function changeBlendMode() {
-    let modes = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"];
+    const modes = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"];
 
     $("#overlay").css("mix-blend-mode", modes[blendModeIndex]);
     $("#currentBlendMode").text(modes[blendModeIndex]);
     
-    if (blendModeIndex == modes.length) {
+    if (blendModeIndex == modes.length - 1) {
         blendModeIndex = 0;
     } else {
         blendModeIndex++;
     }
 }
 
+function changeOverlayColor() {
+    let inputOverlayColor = $("#inputOverlayColor").val();
+    $("#overlay").css("background-color", inputOverlayColor);
+}

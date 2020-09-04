@@ -18,8 +18,18 @@
         <div>
             <button onclick="applyFilter('R');">Red Filter</button>
             <button onclick="applyFilter('B');">Blue Filter</button>
-            <button onclick="changeBlendMode();">Change Blend Mode</button>
-            <p id="currentBlendMode">normal</p>
+            <br>
+            <div>
+                <h3>Overlay Settings</h3>
+                <div class="filterSetting">
+                    <button onclick="changeBlendMode();">Change Blend Mode</button>
+                    <p id="currentBlendMode">normal</p>
+                </div>
+                <div class="filterSetting">
+                    <button onclick="changeOverlayColor();">Change Overlay Color</button>
+                    <input type="text" id="inputOverlayColor" value="#FF0000"/>
+                </div>
+            </div>
         </div>
     </body>
 </html>
