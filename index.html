@@ -3,16 +3,23 @@
     <head>
         <title>Prohibido Fijar Carteles</title>
         <link rel="stylesheet" type="text/css" href="resources/css/index.css" />
+        <script src="resources/js/jquery-3.5.1.min.js"></script>
         <script src="resources/js/index.js"></script>
     </head>
     <body onLoad="loadCamera();">
         <div>
             <video id="preview" autoplay></video>
-            <canvas id="filterPreview"></canvas>
+            <div>
+                <div id="overlay"></div>
+                <div id="overlay2"></div>
+                <canvas id="filterPreview"></canvas>
+            </div>
         </div>
         <div>
             <button onclick="applyFilter('R');">Red Filter</button>
             <button onclick="applyFilter('B');">Blue Filter</button>
+            <button onclick="changeBlendMode();">Change Blend Mode</button>
+            <p id="currentBlendMode">normal</p>
         </div>
     </body>
 </html>
