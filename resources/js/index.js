@@ -69,9 +69,14 @@ function replacePixels(color) {
         //     frame.data[i * 4 + 2] = 255;
         // }
         if (color === "R") {
-            frame.data[i * 4 + 0] = 0;
-        } else if (color === "B") {
+            // frame.data[i * 4 + 0] = 0;
+            frame.data[i * 4 + 1] = 0;
             frame.data[i * 4 + 2] = 0;
+        
+        } else if (color === "B") {
+            frame.data[i * 4 + 0] = 0;
+            frame.data[i * 4 + 1] = 0;
+            // frame.data[i * 4 + 2] = 0;
         }
     }
 
