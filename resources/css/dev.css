@@ -1,0 +1,33 @@
+
+#preview {
+    /* width: 100%; */
+    /* border: solid 1px #000000; */
+}
+
+#filterPreview {
+    /* height: 480px;
+    width: 640px;
+
+    border: solid 1px #ff0000; */
+}
+
+#overlay {
+    position: absolute;
+    z-index: 5;
+    mix-blend-mode: normal;
+}
+
+#overlay2 {
+    position: absolute;
+    z-index: 6;
+    mix-blend-mode: multiply;
+    display: none;
+}
+
+.filterSetting button {
+    display: inline-block;
+}
+
+.filterSetting p {
+    display: inline-block;
+}
