@@ -147,9 +147,9 @@ function getColorPercentage(r, g, b, color) {
 
 function getCapabilities(mediaStream)
 {
-    sleep(2000);
-
-    const track = mediaStream.getVideoTracks()[0];
-    const capabilities = track.getCapabilities();
-    $("#capabilities").text(JSON.stringify(capabilities));
+    setTimeout(() => {  
+        const track = mediaStream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+        $("#capabilities").text(JSON.stringify(capabilities));
+    }, 2000);
 }
