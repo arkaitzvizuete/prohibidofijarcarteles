@@ -22,7 +22,8 @@ function loadCamera() {
     const constraints = {
         audio: false,
         video: {
-            facingMode: "environment"
+            facingMode: "environment",
+            whiteBalanceMode: "false"
         }
     }
 
