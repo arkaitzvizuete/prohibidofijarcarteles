@@ -62,8 +62,9 @@ function successCallback(mediaStream) {
         $("#filterPreview").show();
 
         const track = mediaStream.getVideoTracks()[0];
-        const capabilities = track.getCapabilities();
-        $("#capabilities").text(JSON.stringify(capabilities));
+        track.applyConstraints({
+            advanced: [{zoom: capabilities.zoom.max}]
+        })
 
         // Remove Color
         removeColor(color);
