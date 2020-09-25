@@ -1,12 +1,31 @@
+let color;
+let preview;
+let clientWidth;
+let clientHeight;
+let settingsSetted = false;
+const modes = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"];
 
-let blendModeIndex = 1;
+function applyFilter(c) {
+
+    color = c;
+
+    // Show preview
+    $("#preview").show();
+
+    // Load Camera
+    loadCamera();
+
+}
 
 function loadCamera() {
 
     const constraints = {
         audio: false,
         video: {
-            facingMode: "environment"
+            facingMode: "environment",
+            advanced: [
+                {whiteBalanceMode: "false"}
+            ]
         }
     }
 
@@ -16,6 +35,39 @@ function loadCamera() {
 function successCallback(mediaStream) {
     const video = document.getElementById("preview");
     video.srcObject = mediaStream;
+
+    video.onloadedmetadata = function(e) {
+        // Apply Overlay Color
+        if (color === 'R') {
+            // TODO: Red filter
+            $("#overlay").css("mix-blend-mode", modes[3]);
+            $("#overlay").css("background-color", "#FF0000");
+
+        } else if (color === 'B') {
+            $("#overlay").css("mix-blend-mode", modes[3]);
+            $("#overlay").css("background-color", "#0000FF");
+        }
+
+        // Get video settings
+        preview =  document.getElementById("preview");
+        clientWidth = preview.clientWidth;
+        clientHeight = preview.clientHeight;
+
+        // Apply overlay size
+        $("#overlay").css("width", clientWidth);
+        $("#overlay").css("height", clientHeight);
+
+        // Hide preview
+        $("#preview").hide();
+        $("#filterPreview").show();
+
+        const track = mediaStream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+        $("#capabilities").text(JSON.stringify(capabilities));
+
+        // Remove Color
+        removeColor(color);
+    };
 }
 
 function errorCallback(e) {
@@ -23,35 +75,25 @@ function errorCallback(e) {
 }
 
 
-function applyFilter(color) {
-    // Remove previous filter
+function removeColor(color) {
 
     // Replace Pixels
     replacePixels(color);
     
     // Draw on Canvas
     setTimeout(function() {
-        applyFilter(color);
+        removeColor(color);
     }, 0);
 
 }
 
-
 function replacePixels(color) {
 
-    let preview =  document.getElementById("preview");
     let filterPreview = document.getElementById("filterPreview");
     let filterPreviewContext = filterPreview.getContext("2d");
 
-    let clientWidth = preview.clientWidth;
-    let clientHeight = preview.clientHeight;
     filterPreview.width = clientWidth;
     filterPreview.height = clientHeight;
-
-    $("#overlay").css("width", clientWidth);
-    $("#overlay").css("height", clientHeight);
-    $("#overlay2").css("width", clientWidth);
-    $("#overlay2").css("height", clientHeight);
 
     filterPreviewContext.drawImage(preview, 0, 0, clientWidth, clientHeight);
 
@@ -59,15 +101,7 @@ function replacePixels(color) {
     let l = frame.data.length;
 
     for (let i = 0; i < l; i++) {
-        let r = frame.data[i * 4 + 0];
-        let g = frame.data[i * 4 + 1];
-        let b = frame.data[i * 4 + 2];
 
-        // if (getColorPercentage(r, g, b, color) < 120) {
-        //     frame.data[i * 4 + 0] = 255;
-        //     frame.data[i * 4 + 1] = 255;
-        //     frame.data[i * 4 + 2] = 255;
-        // }
         if (color === "R") {
             // frame.data[i * 4 + 0] = 0;
             frame.data[i * 4 + 1] = 0;
@@ -114,23 +148,4 @@ function getColorPercentage(r, g, b, color) {
     colorPercentage = Math.sqrt(auxR + auxG + auxB);
     
     return colorPercentage;
-}
-
-
-function changeBlendMode() {
-    const modes = ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"];
-
-    $("#overlay").css("mix-blend-mode", modes[blendModeIndex]);
-    $("#currentBlendMode").text(modes[blendModeIndex]);
-    
-    if (blendModeIndex == modes.length - 1) {
-        blendModeIndex = 0;
-    } else {
-        blendModeIndex++;
-    }
-}
-
-function changeOverlayColor() {
-    let inputOverlayColor = $("#inputOverlayColor").val();
-    $("#overlay").css("background-color", inputOverlayColor);
 }
