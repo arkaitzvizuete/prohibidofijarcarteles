@@ -58,9 +58,7 @@ function successCallback(mediaStream) {
         $("#preview").hide();
         $("#filterPreview").show();
 
-        const track = mediaStream.getVideoTracks()[0];
-        const capabilities = track.getCapabilities();
-        $("#capabilities").text(JSON.stringify(capabilities));
+        getCapabilities(mediaStream);
 
         // Remove Color
         removeColor(color);
@@ -145,4 +143,13 @@ function getColorPercentage(r, g, b, color) {
     colorPercentage = Math.sqrt(auxR + auxG + auxB);
     
     return colorPercentage;
+}
+
+function getCapabilities(mediaStream)
+{
+    await sleep(2000);
+
+    const track = mediaStream.getVideoTracks()[0];
+    const capabilities = track.getCapabilities();
+    $("#capabilities").text(JSON.stringify(capabilities));
 }
