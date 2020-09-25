@@ -147,7 +147,7 @@ function getColorPercentage(r, g, b, color) {
 
 function getCapabilities(mediaStream)
 {
-    await sleep(2000);
+    sleep(2000);
 
     const track = mediaStream.getVideoTracks()[0];
     const capabilities = track.getCapabilities();
