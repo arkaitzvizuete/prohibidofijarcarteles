@@ -22,10 +22,7 @@ function loadCamera() {
     const constraints = {
         audio: false,
         video: {
-            facingMode: "environment",
-            advanced: [
-                {whiteBalanceMode: "false"}
-            ]
+            facingMode: "user",
         }
     }
 
@@ -62,9 +59,8 @@ function successCallback(mediaStream) {
         $("#filterPreview").show();
 
         const track = mediaStream.getVideoTracks()[0];
-        track.applyConstraints({
-            advanced: [{zoom: capabilities.zoom.max}]
-        })
+        const capabilities = track.getCapabilities();
+        $("#capabilities").text(JSON.stringify(capabilities));
 
         // Remove Color
         removeColor(color);
