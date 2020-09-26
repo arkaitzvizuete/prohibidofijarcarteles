@@ -69,7 +69,7 @@ function successCallback(mediaStream) {
                 track.applyConstraints(
                     {
                         advanced: [
-                            {zoom: capabilities.zoom.max}
+                            {whiteBalanceMode: "manual"}
                         ]
                     }
                 );
