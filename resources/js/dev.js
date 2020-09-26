@@ -58,7 +58,29 @@ function successCallback(mediaStream) {
         $("#preview").hide();
         $("#filterPreview").show();
 
-        getCapabilities(mediaStream);
+        setTimeout(() => {  
+            const track = mediaStream.getVideoTracks()[0];
+            const capabilities = track.getCapabilities();
+            $("#capabilities").text(JSON.stringify(capabilities));
+    
+            // White Balance Mode
+            try
+            {
+                track.applyConstraints(
+                    {
+                        advanced: [
+                            {zoom: capabilities.zoom.max}
+                        ]
+                    }
+                );
+
+                $("#error").text("There was no error");
+
+            } catch (error) {
+                $("#error").text(error);
+            }
+    
+        }, 2000);
 
         // Remove Color
         removeColor(color);
@@ -147,9 +169,5 @@ function getColorPercentage(r, g, b, color) {
 
 function getCapabilities(mediaStream)
 {
-    setTimeout(() => {  
-        const track = mediaStream.getVideoTracks()[0];
-        const capabilities = track.getCapabilities();
-        $("#capabilities").text(JSON.stringify(capabilities));
-    }, 2000);
+
 }
