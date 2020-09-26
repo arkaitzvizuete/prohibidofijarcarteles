@@ -22,7 +22,8 @@ function loadCamera() {
     const constraints = {
         audio: false,
         video: {
-            facingMode: "environment"
+            facingMode: "environment",
+            whiteBalanceMode: "none"
         }
     }
 
@@ -70,9 +71,7 @@ function successCallback(mediaStream) {
 
                 track.applyConstraints(
                     {
-                        advanced: [
-                            {whiteBalanceMode: "manual"}
-                        ]
+                        whiteBalanceMode: "none"
                     }
                 );
 
