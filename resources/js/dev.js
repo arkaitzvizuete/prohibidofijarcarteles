@@ -66,6 +66,8 @@ function successCallback(mediaStream) {
             // White Balance Mode
             try
             {
+                $("#settingsBefore").text(JSON.stringify(track.getSettings()));
+
                 track.applyConstraints(
                     {
                         advanced: [
@@ -73,6 +75,8 @@ function successCallback(mediaStream) {
                         ]
                     }
                 );
+
+                $("#settingsAfter").text(JSON.stringify(track.getSettings()));
 
                 $("#error").text("There was no error");
 
